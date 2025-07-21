@@ -6,23 +6,31 @@ const Home = lazy(() => import("./Pages/Home"));
 const FetchOld = lazy(() => import("./Pages/FetchOld"));
 const FetchRQ = lazy(() => import("./Pages/FetchRQ"));
 
-const NotFound = () => <div>404 - Page Not Found</div>;
+const NotFound = () => (
+  <div style={{ textAlign: "center", marginTop: "2rem", fontSize: "1.5rem" }}>
+    404 - Page Not Found
+  </div>
+);
+
+const Loading = () => (
+  <div style={{ textAlign: "center", marginTop: "2rem" }}>Loading...</div>
+);
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
     children: [
-      { path: "/", element: <Home /> },
-      { path: "/trad", element: <FetchOld /> },
-      { path: "/rq", element: <FetchRQ /> },
+      { index: true, element: <Home /> },
+      { path: "trad", element: <FetchOld /> },
+      { path: "rq", element: <FetchRQ /> },
       { path: "*", element: <NotFound /> },
     ],
   },
 ]);
 
 const ReactRouter = () => (
-  <Suspense fallback={<div>Loading...</div>}>
+  <Suspense fallback={<Loading />}>
     <RouterProvider router={router} />
   </Suspense>
 );
